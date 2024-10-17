@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "stadvdb-mco1"
+version = "0.1.0"
+description = "A Datapipeline for the Steam dataset found on Kaggle"
+authors = ["Joshua Armaine Gilo <joshua_gilo@dlsu.edu.ph>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.3"
+peewee = "3.17.7"
+mysql-connector-python = "^9.1.0"
+numpy = "^2.1.2"
+pymysql = "^1.1.1"
+jupyter = "^1.1.1"
+tqdm = "^4.66.5"
+pandoc = "^2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
