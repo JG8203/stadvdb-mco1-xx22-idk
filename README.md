@@ -57,17 +57,18 @@ The project involves the following steps:
 
 ![Data Warehouse Schema](schema_diagram.png) 
 
+---
+
 ### Fact and Dimension Tables
 
 #### Fact Table: `Fact_GameMetrics`
 
 - **Measures**:
   - `Price`
-  - `Discount`
   - `EstimatedOwners`
   - `PeakCCU`
-  - `AveragePlaytimeForever`
-  - `AveragePlaytimeTwoWeeks`
+  - `AvgPlaytimeForever`
+  - `AvgPlaytimeTwoWeeks`
   - `MedianPlaytimeForever`
   - `MedianPlaytimeTwoWeeks`
   - `PositiveReviews`
@@ -76,13 +77,12 @@ The project involves the following steps:
   - `UserScore`
 - **Foreign Keys**:
   - `GameID` (links to `Dim_Game`)
-  - `DateID` (links to `Dim_Date`)
 
 #### Dimension Tables
 
 1. **Dim_Game**
    - `GameID` (Primary Key)
-   - `AppID`
+   - `AppID` (Unique)
    - `Name`
    - `ReleaseDate`
    - `RequiredAge`
@@ -95,48 +95,61 @@ The project involves the following steps:
 
 2. **Dim_Developer**
    - `DeveloperID` (Primary Key)
-   - `DeveloperName`
+   - `DeveloperName` (Unique)
 
 3. **Dim_Publisher**
    - `PublisherID` (Primary Key)
-   - `PublisherName`
+   - `PublisherName` (Unique)
 
 4. **Dim_Genre**
    - `GenreID` (Primary Key)
-   - `GenreName`
+   - `GenreName` (Unique)
 
 5. **Dim_Category**
    - `CategoryID` (Primary Key)
-   - `CategoryName`
+   - `CategoryName` (Unique)
 
-6. **Dim_Platform**
-   - `PlatformID` (Primary Key)
-   - `PlatformName` (Windows, Mac, Linux)
-
-7. **Dim_Language**
+6. **Dim_Language**
    - `LanguageID` (Primary Key)
-   - `LanguageName`
-   - `IsFullAudio` (Boolean)
+   - `LanguageName` (Unique)
 
-8. **Dim_Date**
-   - `DateID` (Primary Key)
-   - `Date`
-   - `Day`
-   - `Month`
-   - `Quarter`
-   - `Year`
-   - `Weekday`
+7. **Dim_Tag**
+   - `TagID` (Primary Key)
+   - `TagName` (Unique)
 
 #### Bridge Tables (for Many-to-Many Relationships)
 
 - **Bridge_Game_Developer**
-- **Bridge_Game_Publisher**
-- **Bridge_Game_Genre**
-- **Bridge_Game_Category**
-- **Bridge_Game_Platform**
-- **Bridge_Game_Language**
+  - `GameID` (links to `Dim_Game`)
+  - `DeveloperID` (links to `Dim_Developer`)
+  - **Indexes**: `(GameID, DeveloperID)` (unique)
 
----
+- **Bridge_Game_Publisher**
+  - `GameID` (links to `Dim_Game`)
+  - `PublisherID` (links to `Dim_Publisher`)
+  - **Indexes**: `(GameID, PublisherID)` (unique)
+
+- **Bridge_Game_Genre**
+  - `GameID` (links to `Dim_Game`)
+  - `GenreID` (links to `Dim_Genre`)
+  - **Indexes**: `(GameID, GenreID)` (unique)
+
+- **Bridge_Game_Category**
+  - `GameID` (links to `Dim_Game`)
+  - `CategoryID` (links to `Dim_Category`)
+  - **Indexes**: `(GameID, CategoryID)` (unique)
+
+- **Bridge_Game_Language**
+  - `GameID` (links to `Dim_Game`)
+  - `LanguageID` (links to `Dim_Language`)
+  - **Indexes**: `(GameID, LanguageID)` (unique)
+
+- **Bridge_Game_Tag**
+  - `GameID` (links to `Dim_Game`)
+  - `TagID` (links to `Dim_Tag`)
+  - **Indexes**: `(GameID, TagID)` (unique)
+
+--- 
 
 ## ETL Pipeline
 
@@ -148,146 +161,91 @@ The project involves the following steps:
 - **MySQL**: Database management system.
 - **MySQL Workbench**: For database administration and schema design.
 
-### Data Cleaning Steps
+### Data Cleaning and Transformation Steps
 
-1. **Load Data**: Read `games.csv` into a pandas DataFrame.
-
-   ```python
-   import pandas as pd
-
-   df = pd.read_csv('games.csv')
-   ```
+1. **Load Data**: Load the `games.json` file into a pandas DataFrame.
 
 2. **Handle Missing Values**:
-
-   - Drop rows with critical missing values (e.g., `AppID`, `Name`).
-   - Fill non-critical missing values with appropriate defaults.
+   - Identify and display missing values per column.
+   - Convert `release_date` to datetime, handling any parsing errors.
+   - Ensure critical fields such as `AppID` and `name` do not have missing values.
 
 3. **Convert Data Types**:
-
-   - Convert `Release date` to datetime.
-   - Convert numeric fields to appropriate numeric types.
+   - Convert boolean fields (`windows`, `mac`, `linux`) to boolean types.
+   - Convert numeric fields like `price`, `dlc_count`, `achievements`, etc., to appropriate numeric types, replacing invalid entries with defaults.
 
 4. **Handle Multi-Valued Fields**:
+   - Clean fields like `developers`, `publishers`, `genres`, `categories`, and `supported_languages` by ensuring they are represented as lists. 
+   - Normalize and clean each value in these lists.
 
-   - Split fields like `Developers`, `Publishers`, `Genres`, etc., into lists.
-   - Trim whitespace and clean the values.
-
-5. **Process `Estimated owners` Field**:
-
-   - Convert ranges like `'0 - 20000'` to numeric estimates (e.g., use the midpoint).
+5. **Process `estimated_owners` Field**:
+   - Split the range values in `estimated_owners` into minimum and maximum fields.
+   - Calculate the midpoint as a numeric estimate.
 
 6. **Normalize Data into Dimension Tables**:
-
-   - Create DataFrames for each dimension table.
-   - Extract unique values for dimensions.
+   - Separate the cleaned data into dimension tables for `Game`, `Developer`, `Publisher`, `Genre`, `Category`, `Language`, and `Tag`.
+   - Extract unique entries for each dimension to ensure a normalized schema.
 
 7. **Create Bridge Tables**:
-
-   - Establish many-to-many relationships between games and attributes.
+   - Establish many-to-many relationships between games and their attributes by creating bridge tables (e.g., `BridgeGameDeveloper`, `BridgeGamePublisher`).
 
 8. **Prepare Fact Table**:
-
-   - Extract and clean metric data.
-   - Map `AppID` to `GameID`.
+   - Extract and clean relevant metrics like `price`, `estimated_owners`, `playtime`, and `reviews`.
+   - Ensure `AppID` maps correctly to the `GameID` in the fact table.
 
 9. **Create `Dim_Date` Table**:
-
-   - Extract date components for time-based analysis.
+   - Derive a date dimension table with fields for `Day`, `Month`, `Year`, `Quarter`, and `Weekday` from `release_date`.
+   - Ensure `DateID` is in the `YYYYMMDD` format for indexing.
 
 10. **Data Validation**:
-
-    - Check for duplicates.
-    - Ensure referential integrity between tables.
+    - Check for duplicates across all tables.
+    - Ensure referential integrity between fact and dimension tables, verifying that every foreign key matches a valid entry in its respective dimension.
 
 ### Data Transformation
 
-- **Normalization**: Separate data into fact and dimension tables according to the schema.
-- **Data Type Conversion**: Ensure all data types match the schema requirements.
-- **Data Enrichment**: Derive new columns (e.g., date parts in `Dim_Date`).
-
-### Data Loading
-
-- **Define Models with PeeWee ORM**:
-
-  ```python
-  from peewee import *
-
-  db = MySQLDatabase('steam_dw', user='user', password='password')
-
-  class BaseModel(Model):
-      class Meta:
-          database = db
-
-  class DimGame(BaseModel):
-      # Fields as per schema
-      pass
-
-  # Define other models similarly
-  ```
-
-- **Create Tables**:
-
-  ```python
-  db.connect()
-  db.create_tables([DimGame, DimDeveloper, DimPublisher, DimGenre, DimCategory,
-                    DimPlatform, DimLanguage, DimDate, BridgeGameDeveloper,
-                    BridgeGamePublisher, BridgeGameGenre, BridgeGameCategory,
-                    BridgeGamePlatform, BridgeGameLanguage, FactGameMetrics])
-  ```
-
-- **Insert Data into Tables**:
-
-  ```python
-  # Example for DimGame
-  for _, row in df_game.iterrows():
-      DimGame.create(**row.to_dict())
-  ```
-
-- **Load Data for All Tables**: Repeat the insertion process for each table.
-
----
-
+- **Normalization**: Break the data into fact and dimension tables based on a snowflake schema.
+- **Data Type Enforcement**: Validate that all fields have correct types, particularly numeric and date fields, to match schema requirements.
+- **Data Enrichment**: Add derived fields such as date parts in `Dim_Date` and owner estimates from `estimated_owners`.
 ## OLAP Reports
 
-### Report 1: Sales Trends Over Time
+### Report 1: Lorem Ipsum Dolor Sit
 
-- **Objective**: Analyze how game ownership estimates change over time.
+- **Objective**: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 - **OLAP Operations**:
 
-  - **Roll-up**: Aggregate data from daily to monthly, quarterly, and yearly.
-  - **Drill-down**: Explore data at a more granular level (e.g., from yearly to monthly).
+  - **Roll-up**: Amet, consectetur adipiscing elit, sed do eiusmod tempor.
+  - **Drill-down**: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-- **Visualization**: Line chart showing estimated owners over time.
+- **Visualization**: Line chart showing lorem ipsum dolor sit amet.
 
-### Report 2: Genre Popularity Analysis
+### Report 2: Lorem Ipsum Amet
 
-- **Objective**: Determine the most popular genres based on estimated owners and playtime.
+- **Objective**: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 - **OLAP Operations**:
 
-  - **Slice**: Focus on specific genres.
-  - **Dice**: Compare multiple genres across different platforms or age ratings.
+  - **Slice**: Lorem ipsum dolor sit amet.
+  - **Dice**: Dolore magna aliqua ut enim ad minim veniam.
 
-- **Visualization**: Bar chart or heatmap of genres vs. estimated owners.
+- **Visualization**: Bar chart or heatmap of lorem ipsum dolor.
 
-### Report 3: Platform Support Impact
+### Report 3: Dolor Amet Sit Consectetur
 
-- **Objective**: Assess the impact of platform availability on game popularity.
+- **Objective**: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 - **OLAP Operations**:
 
-  - **Pivot**: Rearrange data to view platforms as dimensions.
-  - **Drill-down**: Analyze individual game performance on each platform.
+  - **Pivot**: Duis aute irure dolor in reprehenderit in voluptate velit.
+  - **Drill-down**: Excepteur sint occaecat cupidatat non proident.
 
-- **Visualization**: Pie chart or stacked bar chart showing distribution across platforms.
+- **Visualization**: Pie chart or stacked bar chart showing lorem ipsum.
 
-### Report 4: Developer and Publisher Performance
+### Report 4: Sit Amet Dolor
 
-- **Objective**: Evaluate which developers and publishers have the most successful games.
+- **Objective**: Consectetur adipiscing elit, sed do eiusmod tempor incididunt.
 - **OLAP Operations**:
 
-  - **Roll-up**: Aggregate data at the developer or publisher level.
+  - **Roll-up**: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-- **Visualization**: Tree map or bubble chart representing performance metrics.
+- **Visualization**: Tree map or bubble chart representing lorem ipsum.
 
 ---
 
@@ -295,23 +253,23 @@ The project involves the following steps:
 
 1. **Indexing**:
 
-   - Create indexes on frequently joined columns (e.g., foreign keys).
-   - Index columns used in `WHERE` clauses.
+   - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   - Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 2. **Query Restructuring**:
 
-   - Optimize SQL queries by simplifying joins and subqueries.
-   - Use appropriate SQL functions and clauses.
+   - Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+   - Dolore magna aliqua ut enim ad minim veniam.
 
 3. **Database Restructuring**:
 
-   - Denormalize tables if necessary to improve read performance.
-   - Partition large tables based on date or other criteria.
+   - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   - Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 4. **Hardware Optimization**:
 
-   - Ensure sufficient hardware resources (CPU, memory, disk I/O).
-   - Consider using SSDs for faster data access.
+   - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   - Duis aute irure dolor in reprehenderit in voluptate velit.
 
 ---
 
@@ -319,18 +277,18 @@ The project involves the following steps:
 
 - **Tableau**:
 
-  - For creating interactive dashboards and visualizations.
-  - Supports advanced OLAP operations.
+  - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  - Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 - **Microsoft Power BI**:
 
-  - User-friendly interface for building reports.
-  - Good for business analytics.
+  - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - Duis aute irure dolor in reprehenderit in voluptate velit.
 
 - **Matplotlib and Seaborn (Python Libraries)**:
 
-  - For custom visualizations if programming is preferred.
-  - Highly customizable graphs and plots.
+  - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  - Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 ---
 
@@ -339,17 +297,17 @@ The project involves the following steps:
 ```
 project_root/
 ├── data/
-│   └── games.csv
+│   └── lorem.csv
 ├── etl/
 │   ├── etl_pipeline.py
 │   └── requirements.txt
 ├── models/
 │   └── models.py
 ├── reports/
-│   ├── report1_sales_trends.ipynb
-│   ├── report2_genre_popularity.ipynb
-│   ├── report3_platform_impact.ipynb
-│   └── report4_developer_performance.ipynb
+│   ├── report1_lorem_ipsum.ipynb
+│   ├── report2_dolor_sit.ipynb
+│   ├── report3_amet_consectetur.ipynb
+│   └── report4_tempor_incididunt.ipynb
 ├── visualizations/
 │   └── dashboards.twbx
 ├── README.md
@@ -363,13 +321,13 @@ project_root/
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/steam-data-warehouse.git
+   git clone https://github.com/yourusername/lorem-ipsum-warehouse.git
    ```
 
 2. **Navigate to Project Directory**:
 
    ```bash
-   cd steam-data-warehouse
+   cd lorem-ipsum-warehouse
    ```
 
 3. **Set Up Poetry** (optional but recommended):
@@ -386,7 +344,7 @@ project_root/
 
 5. **Configure Database Connection**:
 
-   - Update database credentials in `etl_pipeline.py` and `models.py`.
+   - Update lorem ipsum credentials in `etl_pipeline.py` and `models.py`.
 
 6. **Run ETL Pipeline**:
 
@@ -394,20 +352,11 @@ project_root/
    python etl/etl_pipeline.py
    ```
 
-7. **Generate Reports**:
-
-   - Open the Jupyter notebooks in the `reports/` directory.
-   - Run the cells to generate and visualize the reports.
-
-8. **View Visualizations**:
-
-   - Open the Tableau dashboard in `visualizations/dashboards.twbx`.
-
 ---
 
 ## Conclusion
 
-This project demonstrates the end-to-end process of building a data warehouse, performing ETL operations, generating OLAP reports, and optimizing queries for better performance. By analyzing the Steam games dataset, we gain valuable insights into the gaming industry, such as sales trends, genre popularity, and the impact of platform support.
+This project demonstrates lorem ipsum dolor sit amet, consectetur adipiscing elit. By analyzing the dataset, we gain valuable insights into lorem ipsum trends and more.
 
 ---
 
@@ -417,8 +366,6 @@ This project demonstrates the end-to-end process of building a data warehouse, p
 - **PeeWee ORM Documentation**: [http://docs.peewee-orm.com/](http://docs.peewee-orm.com/)
 - **MySQL Documentation**: [https://dev.mysql.com/doc/](https://dev.mysql.com/doc/)
 - **Tableau**: [https://www.tableau.com/](https://www.tableau.com/)
-- **Steam Store Dataset**: *Provided in `games.csv`*
+- **Lorem Ipsum Dataset**: *Provided in `lorem.csv`*
 
 ---
-
-**Note**: This README provides an overview and instructions for replicating the project. For detailed explanations of each step, please refer to the technical report included in the project repository.
