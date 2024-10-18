@@ -1,3 +1,6 @@
 .DS_Store
 .ipynb_checkpoints/*
 data/games.*
+data/cleaned_games.csv
+data/games.json
+data/games.csv
