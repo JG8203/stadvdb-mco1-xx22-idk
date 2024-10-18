@@ -207,9 +207,9 @@ Navigate to the directory where the repository was cloned, and install the depen
 
 ---
 
-### Step 6: Run the ETL Pipeline
+### Step 6a: Run the ETL Pipeline
 > [!CAUTION]
-> DON'T RUN STEP 6 UNLESS NECESSARY. THE REQUIRED DATA WAS ALREADY INSERTED BY `MYSQLDUMP`. TELL THE GROUP IF YOU NEED TO MODIFY THE SCHEMA.
+> DON'T RUN STEP 6a UNLESS NECESSARY. THE REQUIRED DATA WAS ALREADY INSERTED BY `MYSQLDUMP`. TELL THE GROUP IF YOU NEED TO MODIFY THE SCHEMA.
 > THE SCRIPT BELOW POPULATES THE DATABASE WITH DATA FROM THE JSON FILE.
 
 Now that the environment is set up, you can run the ETL pipeline to load and transform the Steam games data.
@@ -221,6 +221,48 @@ Now that the environment is set up, you can run the ETL pipeline to load and tra
    ```
 
    This will clean, transform, and load the data into the database.
+
+---
+
+### Step 6b: Running Report Generation Pipeline
+
+Once the ETL pipeline has been successfully run and the data is loaded into the database, you can generate analytical reports using the **Streamlit** application included in the project.
+
+The **Streamlit** app is located in `dashboard.py` and serves as a front-end for viewing various OLAP reports generated from the data warehouse.
+
+#### Steps to Run the Report Generation Pipeline:
+
+1. **Activate the Poetry Environment**:
+   - Ensure you are inside the project directory where `dashboard.py` is located.
+   - Activate the Poetry environment by running:
+
+     ```bash
+     poetry shell
+     ```
+
+2. **Run the Streamlit Application**:
+
+   To start the Streamlit dashboard, use the following command:
+
+   ```bash
+   streamlit run dashboard.py
+   ```
+
+   This command will launch the application in your default web browser, where you can interact with the generated OLAP reports.
+
+3. **Access the Reports**:
+
+   Once the Streamlit app is running, open your browser and go to the local URL (usually http://localhost:8501), where you will find various reports such as:
+
+   - Game Sales and Performance Reports
+   - Game Genre Analysis
+   - Developer and Publisher Insights
+   - User and Metacritic Reviews Breakdown
+   - Price and Playtime Analytics
+
+4. **Stop the Streamlit Application**:
+
+   To stop the Streamlit app, simply press `Ctrl+C` in the terminal where the app is running.
 
 ---
 
