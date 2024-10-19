@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 import streamlit as st
 import pandas as pd
 
-conn = create_engine("mysql+pymysql://admin:password@localhost/games?charset=utf8mb4")
+conn = create_engine("mysql+pymysql://admin:password@stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com/games?charset=utf8mb4")
 
 st.title("Game Data Reports")
 

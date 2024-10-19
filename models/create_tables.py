@@ -8,7 +8,7 @@ db = MySQLDatabase(
     'games',
     user='admin',
     password='password',
-    host='localhost',
+    host='stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com',
     port=3306,
     charset='utf8mb4'
 )
