@@ -1,8 +1,8 @@
 
 from sqlalchemy import create_engine
-from sqlalchemy import create_engine
 import streamlit as st
 import pandas as pd
+import time  # Import the time module for measuring execution time
 
 # Create a connection to the database
 conn = create_engine("mysql+pymysql://admin:password@stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com/games?charset=utf8mb4")
@@ -21,7 +21,10 @@ SELECT DISTINCT gen.GenreName
 FROM Dim_Genre gen
 JOIN Bridge_Game_Genre bgg ON gen.GenreID = bgg.GenreID_id;
 '''
+# Fetch genres
 available_genres = pd.read_sql(genres_query, conn)['GenreName'].tolist()
+
+# Genre selection
 selected_genres = st.multiselect("Select Genres", available_genres, default=available_genres[:5])
 
 # Adapting query to selected genres and year range
@@ -46,7 +49,10 @@ ORDER BY
     AvgUserScore DESC;
 '''
 
+start_time = time.time()  # Start the timer for the main query execution
 df1 = pd.read_sql(query1, conn)
+query1_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Top 10 Genres data fetched in {query1_fetch_time:.2f} seconds.")
 st.write(df1)
 
 # Visualization: Top Genres by Average User Score Over Time
@@ -54,6 +60,7 @@ st.subheader("Visualization of Top Genres by Average User Score")
 if not df1.empty:
     chart_data = df1.pivot(index='ReleaseYear', columns='GenreName', values='AvgUserScore')
     st.bar_chart(chart_data)
+
 
 # Report 2: Sales Performance Comparison Between Developers with Developer Selector
 st.header("2. Sales Performance Comparison Between Developers")
@@ -64,9 +71,13 @@ SELECT DISTINCT dev.DeveloperName
 FROM Dim_Developer dev
 JOIN Bridge_Game_Developer bgd ON dev.DeveloperID = bgd.DeveloperID_id;
 '''
+# Fetch available developers without timing
 available_developers = pd.read_sql(dev_query, conn)['DeveloperName'].tolist()
+
+# Developer selection
 selected_developers = st.multiselect("Select Developers", available_developers, default=available_developers[:5])
 
+# Adapting query to selected developers
 query2 = f'''
 SELECT
     dev.DeveloperName,
@@ -83,7 +94,10 @@ ORDER BY
     TotalEstimatedOwners DESC;
 '''
 
+start_time = time.time()  # Start the timer for the main query execution
 df2 = pd.read_sql(query2, conn)
+query2_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Sales performance data fetched in {query2_fetch_time:.2f} seconds.")
 st.write(df2)
 
 # Visualization: Sales Performance Comparison Between Developers
@@ -100,7 +114,11 @@ SELECT DISTINCT cat.CategoryName
 FROM Dim_Category cat
 JOIN Bridge_Game_Category bgc ON cat.CategoryID = bgc.CategoryID_id;
 '''
+start_time = time.time()  # Start the timer
 available_categories = pd.read_sql(categories_query, conn)['CategoryName'].tolist()
+categories_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Categories fetched in {categories_fetch_time:.2f} seconds.")
+
 selected_categories = st.multiselect("Select Categories", available_categories, default=available_categories[:5])
 
 query3 = f'''
@@ -124,7 +142,10 @@ ORDER BY
     ReleaseYear ASC, AvgPrice DESC;
 '''
 
+start_time = time.time()  # Start the timer for query execution
 df3 = pd.read_sql(query3, conn)
+query3_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Game prices data fetched in {query3_fetch_time:.2f} seconds.")
 st.write(df3)
 
 # Visualization: Average Game Prices Across Categories with Interactive Filter
@@ -153,8 +174,10 @@ ORDER BY
     f.MetacriticScore DESC;
 '''
 
-
+start_time = time.time()  # Start the timer for query execution
 df4 = pd.read_sql(query4, conn)
+query4_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Metacritic scores data fetched in {query4_fetch_time:.2f} seconds.")
 st.write(df4)
 
 # Visualization: Metacritic Scores vs. User Reviews
@@ -185,14 +208,18 @@ FROM
         GROUP BY
             f.GameID_id, f.EstimatedOwners
     ) AS Sub
-WHERE Sub.LanguageCount BETWEEN {language_count[0]} AND {language_count[1]}
 GROUP BY
     Sub.LanguageCount
+HAVING
+    Sub.LanguageCount BETWEEN {language_count[0]} AND {language_count[1]}
 ORDER BY
     Sub.LanguageCount ASC;
 '''
 
+start_time = time.time()  # Start the timer for query execution
 df5 = pd.read_sql(query5, conn)
+query5_fetch_time = time.time() - start_time  # Calculate fetch time
+st.write(f"Language support data fetched in {query5_fetch_time:.2f} seconds.")
 st.write(df5)
 
 # Visualization: Average Estimated Owners by Number of Supported Languages
