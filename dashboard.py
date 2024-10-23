@@ -13,7 +13,7 @@ st.title("Steam Games Data Analysis")
 years = st.slider("Select Release Year Range", min_value=2000, max_value=2024, value=(2010, 2020), step=1)
 
 # Report 1: Top 10 Genres by Average User Score Over Time with Genre Selector
-st.header("1. Top 10 Genres by Average User Score Over Time")
+st.header("1. Top Genres by Average User Score Over Time")
 
 # Adding genre selection
 genres_query = '''
@@ -43,8 +43,7 @@ GROUP BY
     gen.GenreName,
     ReleaseYear
 ORDER BY
-    AvgUserScore DESC
-LIMIT 10;
+    AvgUserScore DESC;
 '''
 
 df1 = pd.read_sql(query1, conn)
@@ -53,7 +52,7 @@ st.write(df1)
 # Visualization: Top Genres by Average User Score Over Time
 st.subheader("Visualization of Top Genres by Average User Score")
 if not df1.empty:
-    chart_data = df1.pivot(index='GenreName', columns='ReleaseYear', values='AvgUserScore')
+    chart_data = df1.pivot(index='ReleaseYear', columns='GenreName', values='AvgUserScore')
     st.bar_chart(chart_data)
 
 # Report 2: Sales Performance Comparison Between Developers with Developer Selector
