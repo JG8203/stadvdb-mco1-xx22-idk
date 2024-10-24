@@ -5,8 +5,7 @@ import pandas as pd
 import time  # Import the time module for measuring execution time
 
 # Create a connection to the database
-conn = create_engine("mysql+pymysql://admin:password@stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com/games?charset=utf8mb4")
-
+conn = create_engine("mysql+mysqlconnector://admin:password@stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com/games?charset=utf8mb4")
 st.title("Steam Games Data Analysis")
 
 # Interactive year range filter
@@ -26,8 +25,6 @@ available_genres = pd.read_sql(genres_query, conn)['GenreName'].tolist()
 
 # Genre selection
 selected_genres = st.multiselect("Select Genres", available_genres, default=available_genres[:5])
-
-# Adapting query to selected genres and year range
 query1 = f'''
 SELECT
     gen.GenreName,
