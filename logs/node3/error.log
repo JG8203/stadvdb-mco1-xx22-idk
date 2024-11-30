@@ -1,0 +1,14 @@
+2024-11-26T17:19:57.879654Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:19:57.879680Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:19:57.879696Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:19:57.879709Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:19:57.881711Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:19:57.881733Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2024-11-26T17:19:57.899611Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:19:58.296419Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-26T17:19:58.600762Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-26T17:19:58.601256Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-26T17:19:58.605865Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2024-11-26T17:19:58.608054Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_group_name=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'.
+2024-11-26T17:19:58.608319Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:20:00.181941Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.

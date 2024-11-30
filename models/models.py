@@ -12,10 +12,10 @@ from peewee import (
 )
 
 db = MySQLDatabase(
-    'games',
+    database='games',
     user='admin',
     password='password',
-    host='stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com',
+    host='localhost',
     port=3306,
     charset='utf8mb4'
 )
@@ -36,6 +36,9 @@ class DimGame(BaseModel):
     SupportEmail = CharField(null=True)
     HeaderImage = CharField(null=True)
     Notes = TextField(null=True)
+    Windows = BooleanField()
+    Mac = BooleanField()
+    Linux = BooleanField()
 
     class Meta:
         table_name = 'Dim_Game'

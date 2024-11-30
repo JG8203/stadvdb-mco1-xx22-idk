@@ -1,0 +1,94 @@
+2024-11-26T17:19:57.875080Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:19:57.875108Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:19:57.875124Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:19:57.875138Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:19:57.877506Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:19:57.877527Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2024-11-26T17:19:57.899650Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:19:58.310970Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-26T17:19:58.611423Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-26T17:19:58.611666Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-26T17:19:58.616390Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2024-11-26T17:19:58.618752Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_allowlist=node1,node2,node3'.
+2024-11-26T17:19:58.619246Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:20:00.143799Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2024-11-26T17:21:34.398672Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:21:34.398697Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:21:34.401060Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:21:34.398712Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:21:34.401080Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:21:34.398726Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:21:34.401091Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:21:34.399279Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:21:34.401100Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:21:34.399293Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.40) initializing of server in progress as process 41
+2024-11-26T17:21:34.401160Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:21:34.401172Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.40) initializing of server in progress as process 41
+2024-11-26T17:21:34.425638Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:21:34.425608Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:21:35.138419Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-26T17:21:35.179501Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-26T17:21:36.704693Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_group_name=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'.
+2024-11-26T17:21:36.704919Z 0 [ERROR] [MY-013236] [Server] The designated data directory /var/lib/mysql/ is unusable. You can remove all files that the server added to it.
+2024-11-26T17:21:36.705086Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:21:36.776882Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_group_name=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'.
+2024-11-26T17:21:36.777112Z 0 [ERROR] [MY-013236] [Server] The designated data directory /var/lib/mysql/ is unusable. You can remove all files that the server added to it.
+2024-11-26T17:21:36.777291Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:21:39.737088Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2024-11-26T17:21:39.750746Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2024-11-26T17:22:03.792752Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:22:03.792788Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:22:03.792804Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:22:03.792824Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:22:03.795388Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:22:03.795411Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2024-11-26T17:22:03.823714Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:22:03.897886Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2024-11-26T17:22:03.897951Z 0 [Warning] [MY-011070] [Server] 'binlog_format' is deprecated and will be removed in a future release.
+2024-11-26T17:22:03.897998Z 0 [Warning] [MY-011068] [Server] The syntax 'log_slave_updates' is deprecated and will be removed in a future release. Please use log_replica_updates instead.
+2024-11-26T17:22:03.898018Z 0 [Warning] [MY-011069] [Server] The syntax '--transaction-write-set-extraction' is deprecated and will be removed in a future release.
+2024-11-26T17:22:03.900627Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2024-11-26T17:22:03.900686Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2024-11-26T17:22:03.929263Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-26T17:22:04.111948Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-26T17:22:04.229478Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysqld: Table 'mysql.plugin' doesn't exist
+2024-11-26T17:22:04.237095Z 0 [ERROR] [MY-010735] [Server] Could not open the mysql.plugin table. Please perform the MySQL upgrade procedure.
+2024-11-26T17:22:04.237408Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.237860Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.238159Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.238622Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.238942Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.239219Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.239539Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.323292Z 0 [Warning] [MY-010015] [Repl] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+mysqld: Table 'mysql.plugin' doesn't exist
+2024-11-26T17:22:04.356682Z 0 [ERROR] [MY-010735] [Server] Could not open the mysql.plugin table. Please perform the MySQL upgrade procedure.
+2024-11-26T17:22:04.357001Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.357390Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.357729Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.358097Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.358422Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.358706Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.359067Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.397703Z 0 [Warning] [MY-010015] [Repl] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+2024-11-26T17:22:04.405021Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-26T17:22:04.405276Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-26T17:22:04.409820Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2024-11-26T17:22:04.410530Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.411063Z 0 [ERROR] [MY-013129] [Server] A message intended for a client cannot be sent there as no client-session is attached. Therefore, we're sending the information to the error-log instead: MY-001146 - Table 'mysql.component' doesn't exist
+2024-11-26T17:22:04.411437Z 0 [Warning] [MY-013129] [Server] A message intended for a client cannot be sent there as no client-session is attached. Therefore, we're sending the information to the error-log instead: MY-003543 - The mysql.component table is missing or has an incorrect definition.
+2024-11-26T17:22:04.412000Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_group_name=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'.
+2024-11-26T17:22:04.412335Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:22:04.423122Z 0 [Warning] [MY-010015] [Repl] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+2024-11-26T17:22:04.445006Z 0 [Warning] [MY-010015] [Repl] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+2024-11-26T17:22:04.450555Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-26T17:22:04.450801Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-26T17:22:04.454314Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2024-11-26T17:22:04.454897Z 0 [Warning] [MY-010441] [Server] Failed to open optimizer cost constant tables
+2024-11-26T17:22:04.458966Z 0 [ERROR] [MY-013129] [Server] A message intended for a client cannot be sent there as no client-session is attached. Therefore, we're sending the information to the error-log instead: MY-001146 - Table 'mysql.component' doesn't exist
+2024-11-26T17:22:04.459218Z 0 [Warning] [MY-013129] [Server] A message intended for a client cannot be sent there as no client-session is attached. Therefore, we're sending the information to the error-log instead: MY-003543 - The mysql.component table is missing or has an incorrect definition.
+2024-11-26T17:22:04.459585Z 0 [ERROR] [MY-000067] [Server] unknown variable 'group_replication_group_name=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'.
+2024-11-26T17:22:04.459850Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-26T17:22:05.849484Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2024-11-26T17:22:05.922926Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.

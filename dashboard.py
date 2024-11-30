@@ -5,7 +5,7 @@ import pandas as pd
 import time  # Import the time module for measuring execution time
 
 # Create a connection to the database
-conn = create_engine("mysql+mysqlconnector://admin:password@stadvb.chsuys826h4e.ap-southeast-2.rds.amazonaws.com/games?charset=utf8mb4")
+conn = create_engine("mysql+mysqlconnector://admin:password@localhost:3307/distributed_db?charset=utf8mb4")
 st.title("Steam Games Data Analysis")
 
 # Interactive year range filter
